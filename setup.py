@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(name='vagquery',
         version='0.1',
-        descrption='Queries for VAG public transportation time schedules',
+        description='Queries for VAG public transportation time schedules',
         long_description='This modules enables creating and executing queries for\
                 the start.vgn.de site, a page to get the current time schedule\
                 for the franconian public transportation company VAG.',
