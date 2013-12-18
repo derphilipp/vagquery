@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(name='vagquery',
-        version='0.1',
+        version='0.11',
         description='Queries for VAG public transportation time schedules',
         long_description='This modules enables creating and executing queries for\
                 the start.vgn.de site, a page to get the current time schedule\
@@ -16,6 +16,7 @@ setup(name='vagquery',
                     'Development Status :: 3 - Alpha',
                     'License :: OSI Approved :: MIT License',
                     'Programming Language :: Python :: 2.7',
+                    'Programming Language :: Python :: 3.2',
                     'Topic :: Internet :: WWW/HTTP :: Dynamic Content'
                     ],
         keywords='vgn vag public transportation time schedule Nuremberg Erlangen',

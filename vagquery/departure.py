@@ -1,6 +1,7 @@
+from __future__ import unicode_literals
 import datetime
 import requests
-import urllib
+import sys
 
 class Departure(object):
     def __init__(self, direction, direction_type, stopping_point, type_number, departure_actual, departure_planned, product, trip_id, longitude, latitude, prognosis):
@@ -26,10 +27,15 @@ class Departure(object):
         return int(departure.total_seconds()/60)
 
     def __str__(self):
-        return unicode(self).encode('utf-8')
+        if sys.version_info.major >= 3:
+            return self.__unicode__()
+        else:
+            return unicode(self).encode('utf-8')
+
 
     def __unicode__(self):
-       return u'{departure:3} {product:5} -> {direction:20} (ID:{trip_id:5})'.format(departure=self.departure_in_min, product=self.product, direction=self.direction,trip_id = self.trip_id)
+        return '{departure:3} {product:5} -> {direction:20} (ID:{trip_id:5})'.format(departure=self.departure_in_min, product=self.product, direction=self.direction,trip_id = self.trip_id)
+
 
 class DepartureQuery(object):
     def __init__(self, station_id, timedelay=0, bus=True, subway=True, tram=True):
