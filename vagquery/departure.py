@@ -2,6 +2,7 @@ from __future__ import unicode_literals
 import datetime
 import requests
 import sys
+import pytz
 
 class Departure(object):
     def __init__(self, direction, direction_type, stopping_point, type_number, departure_actual, departure_planned, product, trip_id, longitude, latitude, prognosis):
@@ -41,6 +42,9 @@ class DepartureQuery(object):
     def __init__(self, station_id, timedelay=0, bus=True, subway=True, tram=True):
         products_string = self._build_products_string(bus,subway,tram)
         self._url = "http://start.vag.de/dm/api/abfahrten.json/vgn/"+str(station_id)+"/?timedelay="+str(timedelay)+"&product="+products_string
+        tz = pytz.timezone('Europe/Berlin').localize(datetime.datetime.now()).strftime('%z')
+        self.tz = tz[:3] + ':' + tz[3:]
+
     def query(self):
         departures = []
         r = requests.get(self._url)
@@ -52,9 +56,9 @@ class DepartureQuery(object):
             stopping_point= departure["Haltepunkt"]
             type_number = departure["Fahrtartnummer"]
             _departure_actual =  departure["AbfahrtszeitIst"]
-            departure_actual = datetime.datetime.strptime(_departure_actual,"%Y-%m-%dT%H:%M:%S+01:00")
+            departure_actual = datetime.datetime.strptime(_departure_actual,"%Y-%m-%dT%H:%M:%S" + self.tz)
             _departure_planned = departure["AbfahrtszeitSoll"]
-            departure_planned = datetime.datetime.strptime(_departure_planned,"%Y-%m-%dT%H:%M:%S+01:00")
+            departure_planned = datetime.datetime.strptime(_departure_planned,"%Y-%m-%dT%H:%M:%S" + self.tz)
             product = departure["Produkt"]
             trip_id = departure["Fahrtnummer"]
             longitude = departure["Longitude"]

@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(name='vagquery',
-        version='0.111',
+        version='0.12',
         description='Queries for VAG public transportation time schedules',
         long_description='This modules enables creating and executing queries for\
                 the start.vgn.de site, a page to get the current time schedule\
@@ -9,7 +9,7 @@ setup(name='vagquery',
         author='Philipp Weissmann',
         author_email='github@philipp-weissmann.de',
         license='MIT',
-        install_requires=['requests'],
+        install_requires=['requests','pytz'],
         packages=['vagquery'],
         zip_safe=False,
         classifiers=[
