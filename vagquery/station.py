@@ -9,9 +9,11 @@ else:
 
 
 class StationQuery(object):
+
     def __init__(self, text):
-        parameter = {'name': text}
-        self._url = 'http://start.vag.de/dm/api/haltestellen.json/vgn?'+urlencode(parameter)
+        _parameter = {'name': text}
+        self._url = 'http://start.vag.de/dm/api/haltestellen.json/vgn?' + \
+            urlencode(_parameter)
 
     def query(self):
         stations = []
@@ -25,6 +27,7 @@ class StationQuery(object):
 
 
 class Station(object):
+
     def __init__(self, station_id, name, vag_name):
         self.station_id = station_id
         self.name = name
@@ -37,6 +40,7 @@ class Station(object):
             return unicode(self).encode('utf-8')
 
     def __unicode__(self):
-        return '{station_id:5} {vag_name:10} {station_name})'.format(station_id=self.station_id,
-                                                                     vag_name=self.vag_name,
-                                                                     station_name=self.name)
+        return '{station_id:5} {vag_name:10} {station_name})'.\
+            format(station_id=self.station_id,
+                   vag_name=self.vag_name,
+                   station_name=self.name)
