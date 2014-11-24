@@ -4,11 +4,11 @@ branches:
 mastrix:
         include:
                 - python: 2.7
-                env: {TOX_ENV: py27, COVERAGE: 1}
+                  env: {TOX_ENV: py27, COVERAGE: 1}
                 - python: 3.4
-                env: {TOX_ENV: py34}
+                  env: {TOX_ENV: py34}
                 - python: 3.4
-                env: {TOX_ENV: flake8}
+                  env: {TOX_ENV: flake8}
 install:
         - travis_retry sudo apt-get update
         - travis_retry pip install tox
