@@ -1,6 +1,6 @@
 language: python
-branches:
-        only: master
+#branches:
+#        only: master
 env:
         - TOX_ENV="py27"
         - TOX_ENV="py33"
@@ -14,7 +14,9 @@ install:
         - "pip install -r requirements.txt --use-mirrors"
         - "[ ! -z $COVERAGE ] && travis_retry pip install coveralls || true"
 
+#before_script: "flake8 --ignore=F821"
+
 script: tox -e $TOX_ENV
-before_script: "flake8 --ignore=F821"
+
 after_success:
         - "[ ! -z $COVERAGE ] && coveralls || true"
