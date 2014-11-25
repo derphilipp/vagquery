@@ -1,6 +1,10 @@
 =====
 vagquery
 =====
+[![Build Status](https://travis-ci.org/derphilipp/vagquery.svg?branch=master)](https://travis-ci.org/derphilipp/vagquery) 
+[![Coverage Status](https://img.shields.io/coveralls/derphilipp/vagquery.svg)](https://coveralls.io/r/derphilipp/vagquery?branch=master)
+
+
 
 A python library for generating and executing queries for the VAG public transport system
 `start.vag.de <https://start.vag.de>`_.
@@ -45,3 +49,4 @@ License
 =======
 
 *vagquery* is licensed under the MIT license.
+
