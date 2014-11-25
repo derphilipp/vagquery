@@ -34,8 +34,6 @@ class Test_vag_query(unittest.TestCase):
         self.result = station.query()
         self.station = self.result[0]
 
-
-
     def test_one_result(self):
         self.assertEqual(1, len(self.result))
 
@@ -51,6 +49,7 @@ class Test_vag_query(unittest.TestCase):
     def test_string(self):
         self.assertEqual("  536 SCHW       Schweiggerstr. (Nürnberg))",
                          str(self.station))
+
     def test_unicode(self):
         self.assertEqual(u"  536 SCHW       Schweiggerstr. (Nürnberg))",
                          self.station.__unicode__())
@@ -110,8 +109,6 @@ class Test_vag_departure(unittest.TestCase):
                                      bus=True, subway=True, tram=True)
         result = dq.query()
         self.departure = result[0]
-
-
 
     def test_departure(self):
         self.assertEquals(6, self.departure.departure_in_min)
