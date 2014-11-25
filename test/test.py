@@ -28,19 +28,32 @@ class Test_vag_query(unittest.TestCase):
                       content_type=content_type)
 
     @responses.activate
-    def test_station_536(self):
+    def setUp(self):
         self.add_response()
-
         station = vagquery.StationQuery("Schweigger")
-        result = station.query()
-        self.assertEqual(1, len(result))
-        self.assertEqual(536, result[0].station_id)
-        self.assertEqual(u"Schweiggerstr. (Nürnberg)", result[0].name)
-        self.assertEqual("SCHW", result[0].vag_name)
+        self.result = station.query()
+        self.station = self.result[0]
+
+
+
+    def test_one_result(self):
+        self.assertEqual(1, len(self.result))
+
+    def test_station_id(self):
+        self.assertEqual(536, self.station.station_id)
+
+    def test_station_name(self):
+        self.assertEqual(u"Schweiggerstr. (Nürnberg)", self.station.name)
+
+    def test_shortname(self):
+        self.assertEqual("SCHW", self.station.vag_name)
+
+    def test_string(self):
         self.assertEqual("  536 SCHW       Schweiggerstr. (Nürnberg))",
-                         str(result[0]))
+                         str(self.station))
+    def test_unicode(self):
         self.assertEqual(u"  536 SCHW       Schweiggerstr. (Nürnberg))",
-                         result[0].__unicode__())
+                         self.station.__unicode__())
 
 
 class Test_vag_departure(unittest.TestCase):
@@ -85,28 +98,50 @@ class Test_vag_departure(unittest.TestCase):
                       content_type=content_type)
 
     @responses.activate
-    def test_station_536(self):
+    def setUp(self):
         class FakeDate(datetime.datetime):
-
             @classmethod
             def now(cls):
                 return cls(2014, 11, 24, 18, 00, 00)
-
         datetime.date = FakeDate
         datetime.datetime = FakeDate
         self.add_response()
         dq = vagquery.DepartureQuery(536, timedelay=0,
                                      bus=True, subway=True, tram=True)
         result = dq.query()
-        departure = result[0]
-        self.assertEquals(6, departure.departure_in_min)
-        self.assertEquals(4, departure.departure_in_min_planned)
+        self.departure = result[0]
+
+
+
+    def test_departure(self):
+        self.assertEquals(6, self.departure.departure_in_min)
+
+    def test_departure_with_delay(self):
+        self.assertEquals(4, self.departure.departure_in_min_planned)
+
+    def test_string(self):
         self.assertEquals(
             "  6 Tram  -> Tristanstraße        (ID: 1350)",
-            str(departure))
+            str(self.departure))
+
+    def test_unicode(self):
         self.assertEquals(
             u"  6 Tram  -> Tristanstraße        (ID: 1350)",
-            departure.__unicode__())
+            self.departure.__unicode__())
+
+
+class Test_vag_departure_with_errors(unittest.TestCase):
+    def add_response(self):
+        url_re = re.compile(r'http://start.vag.de/dm/api/abfahrten.json/.*')
+        body = """{
+        "Abfahrten": [
+        ]
+        }
+       """
+        status = 200
+        content_type = 'application/json'
+        responses.add(responses.GET, url_re, body=body, status=status,
+                      content_type=content_type)
 
     @responses.activate
     def test_station_without_any_transportation(self):
@@ -114,5 +149,5 @@ class Test_vag_departure(unittest.TestCase):
         self.assertRaises(
             Exception,
             vagquery.DepartureQuery, 536, timedelay=0,
-                                    bus=False, subway=False, tram=False
+            bus=False, subway=False, tram=False
         )
