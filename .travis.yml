@@ -10,6 +10,7 @@ env:
 install: 
         - travis_retry sudo apt-get update
         - travis_retry pip install tox
+        - travis_retry pip install coveralls
         - "pip install flake8 --use-mirrors"
         - "pip install -r requirements.txt --use-mirrors"
         - "[ ! -z $COVERAGE ] && travis_retry pip install coveralls || true"
@@ -20,4 +21,4 @@ script: tox -e $TOX_ENV
 
 after_success:
         - "[ ! -z $COVERAGE ] && nosetests  --with-coverage --cover-package=vagquery || true"
-        #- "[ ! -z $COVERAGE ] && coveralls || true"
+        - "[ ! -z $COVERAGE ] && coveralls || true"
