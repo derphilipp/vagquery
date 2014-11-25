@@ -5,3 +5,6 @@
 *.swp
 .tox
 .ropeproject
+.coverage
+.idea
+.DS_Store
