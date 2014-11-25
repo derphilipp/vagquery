@@ -1,13 +1,6 @@
 language: python
 branches:
         only: master
-
-python:
-        - "2.7"
-        - "3.3"
-        - "3.4"
-        - "pypy"
-        - "flake8"
 env:
         - TOX_ENV="py27"
         - TOX_ENV="py33"
