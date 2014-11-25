@@ -4,7 +4,7 @@ language: python
 env:
         - TOX_ENV="py27"
         - TOX_ENV="py33"
-        - TOX_ENV="py34"
+        - TOX_ENV="py34", COVERAGE=1
         - TOX_ENV="flake8"
 
 install: 
@@ -19,4 +19,5 @@ install:
 script: tox -e $TOX_ENV
 
 after_success:
-        - "[ ! -z $COVERAGE ] && coveralls || true"
+        - "[ ! -z $COVERAGE ] && nosetests  --with-coverage --cover-package=vagquery || true"
+        #- "[ ! -z $COVERAGE ] && coveralls || true"

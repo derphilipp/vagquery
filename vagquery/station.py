@@ -4,7 +4,7 @@ import sys
 
 if sys.version_info.major >= 3:
     from urllib.parse import urlencode
-else:
+else:  # pragma: no cover
     from urllib import urlencode
 
 
@@ -37,7 +37,7 @@ class Station(object):
         if sys.version_info.major >= 3:
             return self.__unicode__()
         else:
-            return unicode(self).encode('utf-8')
+            return unicode(self).encode('utf-8')  # pragma: no cover
 
     def __unicode__(self):
         return '{station_id:5} {vag_name:10} {station_name})'.\

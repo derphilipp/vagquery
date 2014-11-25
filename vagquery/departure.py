@@ -33,10 +33,10 @@ class Departure(object):
         return int(departure.total_seconds() / 60)
 
     def __str__(self):
-        if sys.version_info.major >= 3:
+        if sys.version_info.major >= 3:  # pragma: no cover
             return self.__unicode__()
         else:
-            return unicode(self).encode('utf-8')
+            return unicode(self).encode('utf-8')  # pragma: no cover
 
     def __unicode__(self):
         return '{departure:3} {product:5} -> {direction:20} (ID:{trip_id:5})'.\
