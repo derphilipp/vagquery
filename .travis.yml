@@ -1,24 +1,24 @@
 language: python
-#branches:
-#        only: master
-env:
-        - TOX_ENV="py27"
-        - TOX_ENV="py33"
-        - TOX_ENV="py34", COVERAGE=1
-        - TOX_ENV="flake8"
-
+branches:
+        only: master
+matrix:
+        include:
+                - python: 2.7
+                env: {TOX_ENV: py27}
+                - python: 3.3
+                env: {TOX_ENV: py33}
+                - python: 3.4
+                env: {TOX_ENV: py34, COVERAGE: 1}
+                - python: pypy
+                env: {TOX_ENV: pypy, COVERAGE: 1}
+                - python: 2.7
+                env: {TOX_ENV: flake8}
 install: 
         - travis_retry sudo apt-get update
         - travis_retry pip install tox
-        - travis_retry pip install coveralls
-        - "pip install flake8 --use-mirrors"
-        - "pip install -r requirements.txt --use-mirrors"
         - "[ ! -z $COVERAGE ] && travis_retry pip install coveralls || true"
-
-#before_script: "flake8 --ignore=F821"
 
 script: tox -e $TOX_ENV
 
 after_success:
-        - "[ ! -z $COVERAGE ] && nosetests  --with-coverage --cover-package=vagquery || true"
         - "[ ! -z $COVERAGE ] && coveralls || true"
