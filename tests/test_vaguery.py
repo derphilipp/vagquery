@@ -128,6 +128,7 @@ class Test_vag_departure():
 
 
 class Test_vag_departure_with_errors():
+    @pytest.fixture(autouse=True)
     def add_response(self):
         url_re = re.compile(r'http://start.vag.de/dm/api/abfahrten.json/.*')
         body = """{
@@ -141,7 +142,6 @@ class Test_vag_departure_with_errors():
                       content_type=content_type)
 
     @responses.activate
-    @pytest.fixture(autouse=True)
     def test_station_without_any_transportation(self):
         self.add_response()
         pytest.raises(

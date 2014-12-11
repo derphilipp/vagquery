@@ -2,9 +2,9 @@ from __future__ import unicode_literals
 import requests
 import sys
 
-if sys.version_info.major >= 3:
+if sys.version_info.major >= 3:  # pragma: no cover
     from urllib.parse import urlencode
-else:  # pragma: no cover
+else:  # pragam: no cover
     from urllib import urlencode
 
 
@@ -34,7 +34,7 @@ class Station(object):
         self.vag_name = vag_name
 
     def __str__(self):
-        if sys.version_info.major >= 3:
+        if sys.version_info.major >= 3:  # pragma: no cover
             return self.__unicode__()
         else:
             return unicode(self).encode('utf-8')  # NOQA

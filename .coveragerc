@@ -5,6 +5,7 @@ omit =
     */site-packages/nose/*
     */test/*
 exclude_lines =
+    pragma: no cover
     assert False
     raise NotImplementedError
     if __name__ == .__main__.:

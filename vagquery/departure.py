@@ -34,7 +34,7 @@ class Departure(object):
 
     def __str__(self):
         if sys.version_info.major >= 3:
-            return self.__unicode__()
+            return self.__unicode__()  # pragma: no cover
         else:
             return unicode(self).encode('utf-8')  # NOQA
 
