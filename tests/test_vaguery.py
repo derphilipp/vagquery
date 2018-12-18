@@ -6,9 +6,9 @@ import datetime
 import vagquery
 
 
-class Test_vag_query():
+class Test_vag_query:
     def add_response(self):
-        url_re = re.compile(r'http://start.vag.de/dm/api/haltestellen.json/.*')
+        url_re = re.compile(r"http://start.vag.de/dm/api/haltestellen.json/.*")
         body = """{
         "Haltestellen": [
             {
@@ -23,9 +23,10 @@ class Test_vag_query():
         }
        """
         status = 200
-        content_type = 'application/json'
-        responses.add(responses.GET, url_re, body=body, status=status,
-                      content_type=content_type)
+        content_type = "application/json"
+        responses.add(
+            responses.GET, url_re, body=body, status=status, content_type=content_type
+        )
 
     @responses.activate
     @pytest.fixture(autouse=True)
@@ -48,17 +49,17 @@ class Test_vag_query():
         assert self.station.vag_name == "SCHW"
 
     def test_string(self):
-        assert str(self.station) == \
-            "  536 SCHW       Schweiggerstr. (Nürnberg)"
+        assert str(self.station) == "  536 SCHW       Schweiggerstr. (Nürnberg)"
 
     def test_unicode(self):
-        assert self.station.__unicode__() == \
-            u"  536 SCHW       Schweiggerstr. (Nürnberg)"
+        assert (
+            self.station.__unicode__() == u"  536 SCHW       Schweiggerstr. (Nürnberg)"
+        )
 
 
-class Test_vag_departure():
+class Test_vag_departure:
     def add_response(self):
-        url_re = re.compile(r'http://start.vag.de/dm/api/abfahrten.json/.*')
+        url_re = re.compile(r"http://start.vag.de/dm/api/abfahrten.json/.*")
         body = """{
         "Abfahrten": [
             {
@@ -93,9 +94,10 @@ class Test_vag_departure():
         }
        """
         status = 200
-        content_type = 'application/json'
-        responses.add(responses.GET, url_re, body=body, status=status,
-                      content_type=content_type)
+        content_type = "application/json"
+        responses.add(
+            responses.GET, url_re, body=body, status=status, content_type=content_type
+        )
 
     @responses.activate
     @pytest.fixture(autouse=True)
@@ -104,11 +106,11 @@ class Test_vag_departure():
             @classmethod
             def now(cls):
                 return cls(2014, 11, 24, 18, 00, 00)
+
         datetime.date = FakeDate
         datetime.datetime = FakeDate
         self.add_response()
-        dq = vagquery.DepartureQuery(536, timedelay=0,
-                                     bus=True, subway=True, tram=True)
+        dq = vagquery.DepartureQuery(536, timedelay=0, bus=True, subway=True, tram=True)
         result = dq.query()
         self.departure = result[0]
 
@@ -119,33 +121,39 @@ class Test_vag_departure():
         assert self.departure.departure_in_min_planned == 4
 
     def test_string(self):
-        assert str(self.departure) ==\
-            "  6 Tram  -> Tristanstraße        (ID: 1350)"
+        assert str(self.departure) == "  6 Tram  -> Tristanstraße        (ID: 1350)"
 
     def test_unicode(self):
-        assert self.departure.__unicode__() ==\
-            u"  6 Tram  -> Tristanstraße        (ID: 1350)"
+        assert (
+            self.departure.__unicode__()
+            == u"  6 Tram  -> Tristanstraße        (ID: 1350)"
+        )
 
 
-class Test_vag_departure_with_errors():
+class Test_vag_departure_with_errors:
     @pytest.fixture(autouse=True)
     def add_response(self):
-        url_re = re.compile(r'http://start.vag.de/dm/api/abfahrten.json/.*')
+        url_re = re.compile(r"http://start.vag.de/dm/api/abfahrten.json/.*")
         body = """{
         "Abfahrten": [
         ]
         }
        """
         status = 200
-        content_type = 'application/json'
-        responses.add(responses.GET, url_re, body=body, status=status,
-                      content_type=content_type)
+        content_type = "application/json"
+        responses.add(
+            responses.GET, url_re, body=body, status=status, content_type=content_type
+        )
 
     @responses.activate
     def test_station_without_any_transportation(self):
         self.add_response()
         pytest.raises(
             Exception,
-            vagquery.DepartureQuery, 536, timedelay=0,
-            bus=False, subway=False, tram=False
+            vagquery.DepartureQuery,
+            536,
+            timedelay=0,
+            bus=False,
+            subway=False,
+            tram=False,
         )

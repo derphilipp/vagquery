@@ -1,3 +1,0 @@
-requests==2.2.1
-pytz==2014.10
-responses==0.3.0

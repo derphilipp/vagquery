@@ -1,0 +1,27 @@
+[tool.poetry]
+name = "vagquery"
+version = "1.1"
+description = "Queries for VAG public transportation time schedules"
+
+license = "MIT"
+
+authors = [
+    "Philipp Weißmann <mail@philipp-weissmann.de>"
+]
+
+readme = 'README.md'
+
+repository = "https://github.com/derphilipp/vagquery"
+homepage = "https://github.com/derphilipp/vagquery"
+
+keywords = ['vag', 'public', 'transport']
+
+[tool.poetry.dependencies]
+python = "~2.7 || ^3.4 || ^3.5 || ^3.6 || ^3.7"  # Compatible python versions must be declared here
+
+requests = "^2.18.4"
+pytz = "^2018.07"
+responses = "^0.10.5"
+
+[tool.poetry.dev-dependencies]
+pytest = "^4.0.2"
