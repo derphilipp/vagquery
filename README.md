@@ -1,7 +1,6 @@
-=====
-vagquery
-=====
-[![Build Status](https://travis-ci.org/derphilipp/vagquery.svg?branch=master)](https://travis-ci.org/derphilipp/vagquery) 
+# vagquery
+
+[![Build Status](https://travis-ci.org/derphilipp/vagquery.svg?branch=master)](https://travis-ci.org/derphilipp/vagquery)
 [![Coverage Status](https://coveralls.io/repos/derphilipp/vagquery/badge.png?branch=master)](https://coveralls.io/r/derphilipp/vagquery?branch=master)
 
 
@@ -10,8 +9,7 @@ A python library for generating and executing queries for the VAG public transpo
 
 This enables users with disabilities, hackers and you to receive information from the start.vag website.
 
-General usage
-============
+# General usage
 
 Two classes are usually used:
 
@@ -51,8 +49,7 @@ For a custom formating of the departures, the properties of a departure object c
         print(departure.product + " " + str(departure.latitude) + str(departure.longitude))
 ```
 
-License
-=======
+# License
 
 *vagquery* is licensed under the MIT license.
 
