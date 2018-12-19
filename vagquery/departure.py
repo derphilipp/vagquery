@@ -1,8 +1,10 @@
 from __future__ import unicode_literals
+
 import datetime
-import requests
 import sys
+
 import pytz
+import requests
 
 
 class Departure(object):
@@ -60,13 +62,8 @@ class Departure(object):
 class DepartureQuery(object):
     def __init__(self, station_id, timedelay=0, bus=True, subway=True, tram=True):
         products_string = self._build_products_string(bus, subway, tram)
-        self._url = (
-            "http://start.vag.de/dm/api/abfahrten.json/vgn/"
-            + str(station_id)
-            + "/?timedelay="
-            + str(timedelay)
-            + "&product="
-            + products_string
+        self._url = "http://start.vag.de/dm/api/abfahrten.json/vgn/{}/?timedelay={}&product={}".format(
+            station_id, timedelay, products_string
         )
         tz = (
             pytz.timezone("Europe/Berlin")

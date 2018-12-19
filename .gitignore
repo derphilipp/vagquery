@@ -5,6 +5,7 @@
 *.swp
 .tox
 .ropeproject
+.pytest_cache
 .coverage
 .idea
 .DS_Store
