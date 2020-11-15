@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "vagquery"
-version = "1.1"
+version = "1.2"
 description = "Queries for VAG public transportation time schedules"
 
 license = "MIT"
@@ -17,7 +17,7 @@ homepage = "https://github.com/derphilipp/vagquery"
 keywords = ['vag', 'public', 'transport']
 
 [tool.poetry.dependencies]
-python = "~2.7 || ^3.4 || ^3.5 || ^3.6 || ^3.7"  # Compatible python versions must be declared here
+python = "^3.7 || ^3.8 || ^3.9"  # Compatible python versions must be declared here
 
 requests = "^2.18.4"
 pytz = "^2018.07"
